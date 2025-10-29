@@ -4,8 +4,8 @@ export interface Product {
   description: string;
   originalPrice: number;
   salePrice: number;
-  imageUrl: string;
-  features?: string[];
+  imageUrl: string; // Main image (first image in imageUrls)
+  imageUrls: string[]; // Array of all images
   createdAt: number;
   updatedAt: number;
 }
@@ -15,6 +15,5 @@ export interface ProductFormData {
   description: string;
   originalPrice: string;
   salePrice: string;
-  imageUrl: string;
-  features: string[];
+  imageUrls: string[]; // Changed from imageUrl to imageUrls
 }

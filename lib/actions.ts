@@ -10,23 +10,20 @@ export async function createProductAction(formData: FormData) {
     const description = formData.get('description') as string;
     const originalPrice = parseFloat(formData.get('originalPrice') as string);
     const salePrice = parseFloat(formData.get('salePrice') as string);
-    const imageUrl = formData.get('imageUrl') as string;
-    const featuresJson = formData.get('features') as string;
+    const imageUrlsJson = formData.get('imageUrls') as string;
     
-    // Parse features
-    let features: string[] = [];
-    if (featuresJson) {
+    // Parse imageUrls
+    let imageUrls: string[] = [];
+    if (imageUrlsJson) {
       try {
-        features = JSON.parse(featuresJson);
-        // Filter out empty strings
-        features = features.filter(f => f.trim() !== '');
+        imageUrls = JSON.parse(imageUrlsJson);
       } catch (e) {
-        console.error('Error parsing features:', e);
+        console.error('Error parsing imageUrls:', e);
       }
     }
 
     // Validation
-    if (!title || !description || !imageUrl) {
+    if (!title || !description || imageUrls.length === 0) {
       return { success: false, error: 'Vui lòng điền đầy đủ thông tin' };
     }
 
@@ -47,8 +44,8 @@ export async function createProductAction(formData: FormData) {
       description,
       originalPrice,
       salePrice,
-      imageUrl,
-      features: features.length > 0 ? features : undefined,
+      imageUrl: imageUrls[0], // First image as main image
+      imageUrls,
     });
 
     revalidatePath('/');
@@ -67,23 +64,20 @@ export async function updateProductAction(id: string, formData: FormData) {
     const description = formData.get('description') as string;
     const originalPrice = parseFloat(formData.get('originalPrice') as string);
     const salePrice = parseFloat(formData.get('salePrice') as string);
-    const imageUrl = formData.get('imageUrl') as string;
-    const featuresJson = formData.get('features') as string;
+    const imageUrlsJson = formData.get('imageUrls') as string;
     
-    // Parse features
-    let features: string[] = [];
-    if (featuresJson) {
+    // Parse imageUrls
+    let imageUrls: string[] = [];
+    if (imageUrlsJson) {
       try {
-        features = JSON.parse(featuresJson);
-        // Filter out empty strings
-        features = features.filter(f => f.trim() !== '');
+        imageUrls = JSON.parse(imageUrlsJson);
       } catch (e) {
-        console.error('Error parsing features:', e);
+        console.error('Error parsing imageUrls:', e);
       }
     }
 
     // Validation
-    if (!title || !description || !imageUrl) {
+    if (!title || !description || imageUrls.length === 0) {
       return { success: false, error: 'Vui lòng điền đầy đủ thông tin' };
     }
 
@@ -104,8 +98,8 @@ export async function updateProductAction(id: string, formData: FormData) {
       description,
       originalPrice,
       salePrice,
-      imageUrl,
-      features: features.length > 0 ? features : undefined,
+      imageUrl: imageUrls[0], // First image as main image
+      imageUrls,
     });
 
     if (!product) {

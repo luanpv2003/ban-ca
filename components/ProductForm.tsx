@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import ImageUpload from './ImageUpload';
-import FeaturesInput from './FeaturesInput';
 import { Product } from '@/lib/types';
 
 interface ProductFormProps {
@@ -13,8 +12,7 @@ interface ProductFormProps {
 
 export default function ProductForm({ product, onSubmit }: ProductFormProps) {
   const router = useRouter();
-  const [imageUrl, setImageUrl] = useState(product?.imageUrl || '');
-  const [features, setFeatures] = useState<string[]>(product?.features || []);
+  const [imageUrls, setImageUrls] = useState<string[]>(product?.imageUrls || []);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -22,18 +20,15 @@ export default function ProductForm({ product, onSubmit }: ProductFormProps) {
     e.preventDefault();
     setError(null);
 
-    if (!imageUrl) {
-      setError('Vui lòng upload hình ảnh sản phẩm');
+    if (imageUrls.length === 0) {
+      setError('Vui lòng upload ít nhất 1 hình ảnh sản phẩm');
       return;
     }
 
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
-    formData.set('imageUrl', imageUrl);
-    
-    // Add features as JSON string
-    formData.set('features', JSON.stringify(features));
+    formData.set('imageUrls', JSON.stringify(imageUrls));
 
     try {
       const result = await onSubmit(formData);
@@ -60,7 +55,7 @@ export default function ProductForm({ product, onSubmit }: ProductFormProps) {
         </div>
       )}
 
-      <ImageUpload value={imageUrl} onChange={setImageUrl} />
+      <ImageUpload value={imageUrls} onChange={setImageUrls} />
 
       <div>
         <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
@@ -128,7 +123,7 @@ export default function ProductForm({ product, onSubmit }: ProductFormProps) {
         />
       </div>
 
-      <FeaturesInput value={features} onChange={setFeatures} />
+
 
       <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
         <button

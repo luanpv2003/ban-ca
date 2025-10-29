@@ -15,7 +15,6 @@ export default async function ProductDetailPage({
     notFound();
   }
 
-  const savings = product.originalPrice - product.salePrice;
   const discount = product.originalPrice > product.salePrice
     ? Math.round(((product.originalPrice - product.salePrice) / product.originalPrice) * 100)
     : 0;
@@ -89,10 +88,10 @@ export default async function ProductDetailPage({
                     {product.salePrice.toLocaleString('vi-VN')}đ
                   </span>
                 </div>
-                {savings > 0 && (
-                  <p className="text-green-600 font-medium">
-                    Tiết kiệm {savings.toLocaleString('vi-VN')}đ
-                  </p>
+                {discount > 0 && (
+                  <div className="inline-block bg-red-500 text-white px-3 py-1 rounded-md font-bold">
+                    Giảm {discount}%
+                  </div>
                 )}
               </div>
 

@@ -73,6 +73,7 @@ interface Product {
   originalPrice: number;         // Giá gốc
   salePrice: number;             // Giá bán
   imageUrl: string;              // URL from Coolmate Media
+  features?: string[];           // Đặc điểm nổi bật (optional array)
   createdAt: number;             // Timestamp
   updatedAt: number;             // Timestamp
 }
@@ -87,6 +88,7 @@ interface ProductFormData {
   originalPrice: string;         // String for form input
   salePrice: string;             // String for form input
   imageUrl: string;
+  features: string[];            // Array of feature strings
 }
 ```
 
@@ -183,9 +185,9 @@ Upload image to Coolmate Media API using formidable.
     - Sale price (large, bold, red/orange color)
     - Savings amount (e.g., "Tiết kiệm 50.000đ")
   - Product highlights (bullet points):
-    - Origin (e.g., "Nguồn gốc: Cà Mau")
-    - Quality (e.g., "Cá tươi, sấy khô tự nhiên")
-    - Weight/Size
+    - Display features from product.features array
+    - Each feature shown with green checkmark icon
+    - If no features defined, hide this section
   - Description section:
     - Detailed description about the product
     - Preparation/cooking instructions
@@ -229,13 +231,19 @@ Upload image to Coolmate Media API using formidable.
 - Original price (number input, required)
 - Sale price (number input, required)
 - Description (textarea, required)
+- Features (dynamic list):
+  - Text input for each feature
+  - "Add feature" button to add new feature input
+  - Remove button for each feature
+  - At least one feature recommended but not required
 - Submit button
 - Cancel button
 
 **Validation**:
-- All fields required
+- All fields required except features
 - Sale price <= Original price
 - Image must be uploaded
+- Empty feature strings should be filtered out
 
 #### Edit Product Page (/admin/products/[id]/edit)
 
@@ -286,6 +294,17 @@ interface DeleteButtonProps {
 ```
 
 Button with confirmation dialog for delete action.
+
+#### FeaturesInput Component
+
+```typescript
+interface FeaturesInputProps {
+  value: string[];               // Array of feature strings
+  onChange: (features: string[]) => void;
+}
+```
+
+Dynamic input list for managing product features. Allows adding, editing, and removing feature items.
 
 ## Data Flow
 

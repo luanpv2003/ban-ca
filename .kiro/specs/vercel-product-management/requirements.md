@@ -97,3 +97,15 @@ Hệ thống quản lý sản phẩm e-commerce được xây dựng trên nền
 4. WHEN Coolmate Media API returns a successful response, THE Product Management System SHALL store the returned image URL in Vercel KV as part of the product data
 5. WHEN displaying products, THE Product Management System SHALL render images using the stored Coolmate Media URL
 6. IF an image upload fails, THEN THE Product Management System SHALL display an error message with the reason
+
+### Requirement 8
+
+**User Story:** Là một quản trị viên, tôi muốn thêm và chỉnh sửa các đặc điểm nổi bật của sản phẩm, để khách hàng có thể thấy những ưu điểm chính của sản phẩm một cách rõ ràng.
+
+#### Acceptance Criteria
+
+1. THE Product Management System SHALL provide an interface in the Admin Panel to add multiple product features
+2. WHEN an admin creates or edits a product, THE Product Management System SHALL allow adding, editing, and removing feature items
+3. WHEN a product feature is saved, THE Product Management System SHALL store the features as an array in Vercel KV as part of the product data
+4. WHEN displaying a product detail page, THE Product Management System SHALL render all product features as a bulleted list with checkmark icons
+5. IF no features are defined for a product, THEN THE Product Management System SHALL not display the features section on the product detail page

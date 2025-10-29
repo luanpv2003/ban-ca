@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import ImageUpload from './ImageUpload';
+import FeaturesInput from './FeaturesInput';
 import { Product } from '@/lib/types';
 
 interface ProductFormProps {
@@ -13,6 +14,7 @@ interface ProductFormProps {
 export default function ProductForm({ product, onSubmit }: ProductFormProps) {
   const router = useRouter();
   const [imageUrl, setImageUrl] = useState(product?.imageUrl || '');
+  const [features, setFeatures] = useState<string[]>(product?.features || []);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -29,6 +31,9 @@ export default function ProductForm({ product, onSubmit }: ProductFormProps) {
 
     const formData = new FormData(e.currentTarget);
     formData.set('imageUrl', imageUrl);
+    
+    // Add features as JSON string
+    formData.set('features', JSON.stringify(features));
 
     try {
       const result = await onSubmit(formData);
@@ -122,6 +127,8 @@ export default function ProductForm({ product, onSubmit }: ProductFormProps) {
           placeholder="Mô tả chi tiết về sản phẩm, nguồn gốc, cách chế biến, bảo quản..."
         />
       </div>
+
+      <FeaturesInput value={features} onChange={setFeatures} />
 
       <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
         <button

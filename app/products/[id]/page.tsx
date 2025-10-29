@@ -15,6 +15,7 @@ export default async function ProductDetailPage({
     notFound();
   }
 
+  const savings = product.originalPrice - product.salePrice;
   const discount = product.originalPrice > product.salePrice
     ? Math.round(((product.originalPrice - product.salePrice) / product.originalPrice) * 100)
     : 0;
@@ -88,33 +89,29 @@ export default async function ProductDetailPage({
                     {product.salePrice.toLocaleString('vi-VN')}đ
                   </span>
                 </div>
-                {discount > 0 && (
-                  <div className="inline-block bg-red-500 text-white px-3 py-1 rounded-md font-bold">
-                    Giảm {discount}%
-                  </div>
+                {savings > 0 && (
+                  <p className="text-green-600 font-medium">
+                    Tiết kiệm {savings.toLocaleString('vi-VN')}đ
+                  </p>
                 )}
               </div>
 
               {/* Product Highlights */}
-              <div className="mb-6">
-                <h2 className="text-xl font-semibold mb-3 text-gray-800">
-                  Đặc điểm nổi bật
-                </h2>
-                <ul className="space-y-2">
-                  <li className="flex items-start gap-2">
-                    <span className="text-green-500 mt-1">✓</span>
-                    <span className="text-gray-700">Cá tươi, sấy khô tự nhiên</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-green-500 mt-1">✓</span>
-                    <span className="text-gray-700">Đảm bảo chất lượng và vệ sinh an toàn thực phẩm</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-green-500 mt-1">✓</span>
-                    <span className="text-gray-700">Giao hàng tận nơi, đóng gói cẩn thận</span>
-                  </li>
-                </ul>
-              </div>
+              {product.features && product.features.length > 0 && (
+                <div className="mb-6">
+                  <h2 className="text-xl font-semibold mb-3 text-gray-800">
+                    Đặc điểm nổi bật
+                  </h2>
+                  <ul className="space-y-2">
+                    {product.features.map((feature, index) => (
+                      <li key={index} className="flex items-start gap-2">
+                        <span className="text-green-500 mt-1">✓</span>
+                        <span className="text-gray-700">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               {/* Description */}
               <div className="mb-6">

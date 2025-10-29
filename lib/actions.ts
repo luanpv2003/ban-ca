@@ -11,6 +11,19 @@ export async function createProductAction(formData: FormData) {
     const originalPrice = parseFloat(formData.get('originalPrice') as string);
     const salePrice = parseFloat(formData.get('salePrice') as string);
     const imageUrl = formData.get('imageUrl') as string;
+    const featuresJson = formData.get('features') as string;
+    
+    // Parse features
+    let features: string[] = [];
+    if (featuresJson) {
+      try {
+        features = JSON.parse(featuresJson);
+        // Filter out empty strings
+        features = features.filter(f => f.trim() !== '');
+      } catch (e) {
+        console.error('Error parsing features:', e);
+      }
+    }
 
     // Validation
     if (!title || !description || !imageUrl) {
@@ -35,6 +48,7 @@ export async function createProductAction(formData: FormData) {
       originalPrice,
       salePrice,
       imageUrl,
+      features: features.length > 0 ? features : undefined,
     });
 
     revalidatePath('/');
@@ -54,6 +68,19 @@ export async function updateProductAction(id: string, formData: FormData) {
     const originalPrice = parseFloat(formData.get('originalPrice') as string);
     const salePrice = parseFloat(formData.get('salePrice') as string);
     const imageUrl = formData.get('imageUrl') as string;
+    const featuresJson = formData.get('features') as string;
+    
+    // Parse features
+    let features: string[] = [];
+    if (featuresJson) {
+      try {
+        features = JSON.parse(featuresJson);
+        // Filter out empty strings
+        features = features.filter(f => f.trim() !== '');
+      } catch (e) {
+        console.error('Error parsing features:', e);
+      }
+    }
 
     // Validation
     if (!title || !description || !imageUrl) {
@@ -78,6 +105,7 @@ export async function updateProductAction(id: string, formData: FormData) {
       originalPrice,
       salePrice,
       imageUrl,
+      features: features.length > 0 ? features : undefined,
     });
 
     if (!product) {

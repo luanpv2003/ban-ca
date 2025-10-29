@@ -5,6 +5,7 @@ export interface Product {
   originalPrice: number;
   salePrice: number;
   imageUrl: string;
+  features?: string[];
   createdAt: number;
   updatedAt: number;
 }
@@ -15,4 +16,5 @@ export interface ProductFormData {
   originalPrice: string;
   salePrice: string;
   imageUrl: string;
+  features: string[];
 }

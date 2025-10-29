@@ -123,3 +123,15 @@
   - Optimize images for mobile devices
   - Test on various screen sizes
   - _Requirements: 1.1, 2.1_
+
+- [ ] 13. Add product features functionality
+  - Update Product interface in lib/types.ts to include optional features array
+  - Update ProductFormData interface to include features array
+  - Update database operations in lib/db.ts to handle features field
+  - Create components/FeaturesInput.tsx component for dynamic feature list management
+  - Update components/ProductForm.tsx to include FeaturesInput component
+  - Update createProductAction and updateProductAction to handle features data
+  - Update app/products/[id]/page.tsx to display features section with checkmarks
+  - Add conditional rendering to hide features section if no features exist
+  - Filter out empty feature strings before saving
+  - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5_

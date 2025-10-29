@@ -27,7 +27,7 @@ export default async function ProductDetailPage({
     <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
       <ProductDetailHeader />
 
-      <main className="container mx-auto px-4 py-8">
+      <main id="main-content" className="container mx-auto px-4 py-8">
         <ProductBreadcrumb productTitle={product.title} />
 
         {/* Product Detail */}

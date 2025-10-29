@@ -60,7 +60,8 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-6 md:py-8">
+      <main id="main-content" className="container mx-auto px-4 py-6 md:py-8">
+        <h2 className="sr-only">Danh sách sản phẩm</h2>
         <Suspense fallback={<ProductListSkeleton />}>
           <ProductList />
         </Suspense>

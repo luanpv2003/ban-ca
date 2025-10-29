@@ -68,19 +68,21 @@ export default function ProductImage({ imageUrls, title, discount }: ProductImag
           <>
             <button
               onClick={() => emblaApi?.scrollPrev()}
-              className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg transition-all z-10"
-              aria-label="Previous image"
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg transition-all z-10 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              aria-label={`Xem ảnh trước, hiện tại đang xem ảnh ${selectedIndex + 1} trong tổng số ${imageUrls.length} ảnh`}
+              type="button"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
             <button
               onClick={() => emblaApi?.scrollNext()}
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg transition-all z-10"
-              aria-label="Next image"
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg transition-all z-10 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              aria-label={`Xem ảnh tiếp theo, hiện tại đang xem ảnh ${selectedIndex + 1} trong tổng số ${imageUrls.length} ảnh`}
+              type="button"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
@@ -89,16 +91,19 @@ export default function ProductImage({ imageUrls, title, discount }: ProductImag
 
         {/* Dots Indicator */}
         {imageUrls.length > 1 && (
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10" role="tablist" aria-label="Chọn ảnh sản phẩm">
             {imageUrls.map((_, index) => (
               <button
                 key={index}
                 onClick={() => scrollTo(index)}
-                className={`w-2 h-2 rounded-full transition-all ${index === selectedIndex
+                className={`w-2 h-2 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-orange-500 ${index === selectedIndex
                   ? 'bg-white w-6'
                   : 'bg-white/50 hover:bg-white/75'
                   }`}
-                aria-label={`Go to image ${index + 1}`}
+                aria-label={`Chuyển đến ảnh ${index + 1}`}
+                aria-selected={index === selectedIndex}
+                role="tab"
+                type="button"
               />
             ))}
           </div>
@@ -107,22 +112,26 @@ export default function ProductImage({ imageUrls, title, discount }: ProductImag
 
       {/* Thumbnail Gallery */}
       {imageUrls.length > 1 && (
-        <div className="grid grid-cols-4 gap-2">
+        <div className="grid grid-cols-4 gap-2" role="list" aria-label="Danh sách ảnh thu nhỏ">
           {imageUrls.map((url, index) => (
             <button
               key={index}
               onClick={() => scrollTo(index)}
-              className={`relative aspect-square rounded-lg overflow-hidden bg-gray-100 border-2 transition-all ${selectedIndex === index
+              className={`relative aspect-square rounded-lg overflow-hidden bg-gray-100 border-2 transition-all focus:outline-none focus:ring-2 focus:ring-orange-500 ${selectedIndex === index
                 ? 'border-orange-500 ring-2 ring-orange-200'
                 : 'border-gray-200 hover:border-orange-300'
                 }`}
+              aria-label={`Xem ảnh ${index + 1} của ${title}`}
+              aria-pressed={selectedIndex === index}
+              type="button"
             >
               <Image
                 src={url}
-                alt={`${title} - Thumbnail ${index + 1}`}
+                alt=""
                 fill
                 className="object-cover"
                 sizes="100px"
+                role="presentation"
               />
             </button>
           ))}

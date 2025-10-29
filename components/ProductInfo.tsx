@@ -74,7 +74,8 @@ export default function ProductInfo({
         <div className="flex gap-3 flex-wrap">
           <a
             href="tel:0123456789"
-            className="flex-1 min-w-[140px] bg-green-500 hover:bg-green-600 active:bg-green-700 text-white font-bold py-3 px-4 sm:px-6 rounded-lg transition-colors text-center text-sm sm:text-base touch-manipulation"
+            className="flex-1 min-w-[140px] bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-bold py-3 px-4 sm:px-6 rounded-lg transition-colors text-center text-sm sm:text-base touch-manipulation focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+            aria-label="Gọi điện thoại đặt hàng"
           >
             📞 Gọi ngay
           </a>
@@ -82,12 +83,17 @@ export default function ProductInfo({
             href="https://zalo.me/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 min-w-[140px] bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white font-bold py-3 px-4 sm:px-6 rounded-lg transition-colors text-center text-sm sm:text-base touch-manipulation"
+            className="flex-1 min-w-[140px] bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold py-3 px-4 sm:px-6 rounded-lg transition-colors text-center text-sm sm:text-base touch-manipulation focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            aria-label="Chat qua Zalo"
           >
             💬 Chat Zalo
           </a>
         </div>
-        <button className="w-full mt-3 bg-orange-500 hover:bg-orange-600 active:bg-orange-700 text-white font-bold py-3 sm:py-4 px-6 rounded-lg transition-colors text-base sm:text-lg touch-manipulation">
+        <button 
+          className="w-full mt-3 bg-orange-500 hover:bg-orange-600 active:bg-orange-700 text-white font-bold py-3 sm:py-4 px-6 rounded-lg transition-colors text-base sm:text-lg touch-manipulation focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+          aria-label="Đặt hàng sản phẩm này"
+          type="button"
+        >
           🛒 Đặt hàng ngay
         </button>
       </div>
